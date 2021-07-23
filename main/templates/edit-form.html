@@ -1,0 +1,13 @@
+{% extends 'layouts/page.html' %}
+
+{% block content %}
+    <form action="" method="post">
+        <div class="justified">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+        </div>
+        <button type="submit" value="Submit" class="submit-button">Submit</button>
+    </form>
+{% endblock %}
