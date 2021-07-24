@@ -7,6 +7,11 @@
 
 <form method="POST" action="" class="new-question-form">
   {% csrf_token %}
+  <div class="fieldWrapper">
+    <label for="{{form.lesson.id_for_label}}">Lesson:</label>
+    {{form.lesson}}
+    <span class="error">{{form.title.errors}}</span>
+  </div>
 <div class="fieldWrapper">
   <label for="{{form.title.id_for_label}}">Title:</label>
   {{form.title}}

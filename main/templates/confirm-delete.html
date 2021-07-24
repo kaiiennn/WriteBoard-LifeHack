@@ -1,10 +1,10 @@
 {% extends 'layouts/page.html' %}
 
 {% block content %}
-    <h1 style="font-size: 30px; padding-top: 20px; padding-bottom: 20px; text-align: center">Please confirm that you wish to delete the question</h1>
+    <h1 style="font-size: 30px; padding-top: 20px; padding-bottom: 20px; text-align: center">Please confirm that you wish to delete</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        
+
         <input type="submit" value="Delete" class="delete-button"></input>
     </form>
 

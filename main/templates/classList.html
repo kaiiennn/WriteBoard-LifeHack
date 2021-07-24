@@ -1,0 +1,29 @@
+{% extends 'layouts/page.html' %}
+
+{% block content %}
+    <div class="justified">
+        {% if class_list %}
+            <h3>Number of Classes: {{class_list.count}}</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>List of Classes</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for Class in class_list %}
+                        <tr>
+                            <td><a href="{{ Class.get_absolute_url }}">{{ Class.Class }}</a></td>
+                            <td><a href="{{ Class.get_absolute_url }}/edit" class="edit-button" value="Edit"></a></td>
+                            <td><a href="{{ Class.get_absolute_url }}/delete" class="delete-button" value="Delete"></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>There are no classes created for this module.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

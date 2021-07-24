@@ -1,0 +1,30 @@
+{% extends 'layouts/page.html' %}
+
+{% block content %}
+    <div class="justified">
+        {% if lessons_list %}
+            <h3>Number of Lessons: {{lessons_list.count}}</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>List of lessons</th>
+                        <th>Date of Lessons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Lessons in lessons_list %}
+                        <tr>
+                            <td><a href="{{ Lessons.get_absolute_url }}">{{ Lessons.lesson }}</a></td>
+                            <td>{{ Lessons.lessonDateTime }}</a></td>
+                            <td><a href="{{ Lessons.get_absolute_url }}/edit" class="edit-button" value="Edit"></a></td>
+                            <td><a href="{{ Lessons.get_absolute_url }}/delete" class="delete-button" value="Delete"></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>There are no lessons created for this class.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

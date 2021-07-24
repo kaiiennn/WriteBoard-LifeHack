@@ -6,36 +6,36 @@ from django.urls import reverse
 
 
 class Module(models.Model):
-    moduleName = models.CharField(max_length=1000)
+    module = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.module
 
     def get_absolute_url(self):
-        return reverse('module', args=[str(self.id)])
+        return reverse('class-list', args=[str(self.id)])
 
 
 class Class(models.Model):
-    Module = models.ForeignKey(Module, on_delete=models.CASCADE)
-    ClassName = models.CharField(max_length=1000)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    Class = models.CharField(max_length=1000)
 
     def __str__(self):
-        return self.ClassName
+        return self.Class
 
     def get_absolute_url(self):
-        return reverse('class', args=[str(self.id)])
+        return reverse('lesson-list', args=[str(self.id)])
 
 
 class Lessons(models.Model):
-    Class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    Class = models.ForeignKey('Class', on_delete=models.CASCADE)
     lessonDateTime = models.DateTimeField()
-    lessonName = models.CharField(max_length=1000)
+    lesson = models.CharField(max_length=1000)
 
     def __str__(self):
-        return self.lessonName
+        return self.lesson
 
     def get_absolute_url(self):
-        return reverse('lesson', args=[str(self.id)])
+        return reverse('question-list', args=[str(self.id)])
 
 
 class Question(models.Model):
@@ -44,7 +44,7 @@ class Question(models.Model):
     body = models.TextField(null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE)
+    lesson = models.ForeignKey('Lessons', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

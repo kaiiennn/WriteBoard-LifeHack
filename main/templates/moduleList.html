@@ -1,0 +1,28 @@
+{% extends 'layouts/page.html' %}
+
+{% block content %}
+    <div class="justified">
+        {% if module_list %}
+            <h3>Number of Modules: {{module_list.count}}</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Module List</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Module in module_list %}
+                        <tr>
+                            <td><a href="{{ Module.get_absolute_url }}">{{ Module.module }}</a></td>
+                            <td><a href="{{ Module.get_absolute_url }}/edit" class="edit-button" value="Edit"></a></td>
+                            <td><a href="{{ Module.get_absolute_url }}/delete" class="delete-button" value="Delete"></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>There are no modules created.</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

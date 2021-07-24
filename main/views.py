@@ -143,17 +143,18 @@ class editQuestion(UpdateView):
 
 class createModule(CreateView):
     model = Module
-    fields = ['moduleName']
+    fields = ['module']
     template_name = "createform.html"
 
 
 class listviewModule(ListView):
     model = Module
+    template_name = "moduleList.html"
 
 
 class createClass(CreateView):
     model = Class
-    fields = ['Module', 'ClassName']
+    fields = ['module', 'Class']
     template_name = "createform.html"
 
 
@@ -162,12 +163,12 @@ class listviewClass(ListView):
     template_name = "classList.html"
 
     def get_queryset(self):
-        return Class.objects.filter(Module__exact=self.kwargs['pk'])
+        return Class.objects.filter(module__exact=self.kwargs['pk'])
 
 
 class createLesson(CreateView):
     model = Lessons
-    fields = ['Class', 'lessonDateTime', 'lessonName']
+    fields = ['Class', 'lessonDateTime', 'lesson']
     template_name = "createform.html"
 
 
@@ -179,9 +180,9 @@ class listviewLesson(ListView):
         return Lessons.objects.filter(Class__exact=self.kwargs['pk'])
 
 
-def questionlist(request):
+def questionlist(request, pk):
     questions = Question.objects.filter(
-        lesson__exact=self.kwargs['pk']).order_by('-created_at')
+        lesson__exact=pk).order_by('-created_at')
     context = {
         'questions': questions
     }
