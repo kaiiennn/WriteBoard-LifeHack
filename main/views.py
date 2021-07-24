@@ -65,7 +65,6 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
-                question.lesson.set()
                 prikey = form.instance.pk
                 return redirect('/question/'+str(prikey))
         except Exception as e:
