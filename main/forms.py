@@ -34,7 +34,7 @@ class LoginForm(AuthenticationForm):
 class NewQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['title', 'body']
+        fields = ['title', 'body', 'lesson']
         widgets = {
             'title': forms.TextInput(attrs={
                 'autofocus': True,
