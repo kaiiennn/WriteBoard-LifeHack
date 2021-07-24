@@ -15,4 +15,4 @@ Next, open a web browser and navigate to:
 ```
 http://localhost:8000
 ```
-Once the web browser finishes loading you should see our furits of the past 24 hours!
+Once the web browser finishes loading you should see our fruits of the past 24 hours!
