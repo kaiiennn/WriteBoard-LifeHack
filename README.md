@@ -16,3 +16,6 @@ Next, open a web browser and navigate to:
 http://localhost:8000
 ```
 Once the web browser finishes loading you should see our fruits of the past 24 hours!
+
+Our demo is on: 18.139.59.137:8000
+feel free to try it out!
