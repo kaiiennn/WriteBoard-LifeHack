@@ -15,8 +15,16 @@
                     {% for Class in class_list %}
                         <tr>
                             <td><a href="{{ Class.get_absolute_url }}">{{ Class.Class }}</a></td>
-                            <td><a href="{{ Class.get_absolute_url }}/edit" class="edit-button" value="Edit"></a></td>
-                            <td><a href="{{ Class.get_absolute_url }}/delete" class="delete-button" value="Delete"></a></td>
+                            <td>
+                                <button type="button" class="edit-button">
+                                <a href="{{Class.get_absolute_url}}/edit" style="color:#FFFFFF">Edit</a>
+                              </button>
+                            </td>
+                            <td>
+                                <button type="button" class="delete-button">
+                                <a href="{{Class.get_absolute_url}}/delete" style="color:#FFFFFF">Delete</a>
+                              </button>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -25,5 +33,8 @@
             <p>There are no classes created for this module.</p>
         {% endif %}
     </div>
+    <button type="button" class="submit-button">
+        <a href="/class/create" style="color:#FFFFFF">Add</a>
+    </button>
 
 {% endblock %}

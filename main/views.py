@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Question, Response, Module, Class, Lessons
 from .forms import RegisterUserForm, LoginForm, NewQuestionForm, NewResponseForm, NewReplyForm
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
@@ -64,6 +65,7 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
+                question.lesson.set()
                 prikey = form.instance.pk
                 return redirect('/question/'+str(prikey))
         except Exception as e:
@@ -74,12 +76,8 @@ def newQuestionPage(request):
     return render(request, 'new-question.html', context)
 
 
-def homePage(request):
-    questions = Question.objects.all().order_by('-created_at')
-    context = {
-        'questions': questions
-    }
-    return render(request, 'homepage.html', context)
+def landingpage(request):
+    return render(request, "landing-page.html")
 
 
 def questionPage(request, id):
@@ -129,36 +127,60 @@ def replyPage(request):
     return redirect('index')
 
 
-class deleteQuestion(DeleteView):
+class deleteQuestion(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
     model = Question
     template_name = "confirm-delete.html"
     success_url = reverse_lazy('index')
 
 
-class editQuestion(UpdateView):
+class editQuestion(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
     model = Question
     template_name = "edit-form.html"
     fields = ['title', 'body']
 
+# Module
 
-class createModule(CreateView):
+
+class createModule(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Module
     fields = ['module']
     template_name = "createform.html"
 
 
-class listviewModule(ListView):
+class listviewModule(LoginRequiredMixin, ListView):
+    login_url = 'login'
     model = Module
     template_name = "moduleList.html"
 
 
-class createClass(CreateView):
+class deleteModule(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
+    model = Module
+    template_name = "confirm-delete.html"
+    success_url = reverse_lazy('module-list')
+
+
+class editModule(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
+    model = Module
+    template_name = "edit-form.html"
+    fields = ['module']
+
+# Class
+
+
+class createClass(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Class
     fields = ['module', 'Class']
     template_name = "createform.html"
 
 
-class listviewClass(ListView):
+class listviewClass(LoginRequiredMixin, ListView):
+    login_url = 'login'
     model = Class
     template_name = "classList.html"
 
@@ -166,13 +188,31 @@ class listviewClass(ListView):
         return Class.objects.filter(module__exact=self.kwargs['pk'])
 
 
-class createLesson(CreateView):
+class deleteClass(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
+    model = Class
+    template_name = "confirm-delete.html"
+    success_url = reverse_lazy('module-list')
+
+
+class editClass(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
+    model = Class
+    template_name = "edit-form.html"
+    fields = ['module', 'Class']
+
+
+# Lessons
+
+class createLesson(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Lessons
     fields = ['Class', 'lessonDateTime', 'lesson']
     template_name = "createform.html"
 
 
-class listviewLesson(ListView):
+class listviewLesson(LoginRequiredMixin, ListView):
+    login_url = 'login'
     model = Lessons
     template_name = "lessonList.html"
 
@@ -180,10 +220,25 @@ class listviewLesson(ListView):
         return Lessons.objects.filter(Class__exact=self.kwargs['pk'])
 
 
+class deleteLesson(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
+    model = Lessons
+    template_name = "confirm-delete.html"
+    success_url = reverse_lazy('module-list')
+
+
+class editLesson(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
+    model = Lessons
+    template_name = "edit-form.html"
+    fields = ['Class', 'lessonDateTime', 'lesson']
+
+
+@login_required(login_url='register')
 def questionlist(request, pk):
     questions = Question.objects.filter(
         lesson__exact=pk).order_by('-created_at')
     context = {
         'questions': questions
     }
-    return render(request, 'homepage.html', context)
+    return render(request, 'questionlist.html', context)

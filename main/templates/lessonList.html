@@ -16,8 +16,16 @@
                         <tr>
                             <td><a href="{{ Lessons.get_absolute_url }}">{{ Lessons.lesson }}</a></td>
                             <td>{{ Lessons.lessonDateTime }}</a></td>
-                            <td><a href="{{ Lessons.get_absolute_url }}/edit" class="edit-button" value="Edit"></a></td>
-                            <td><a href="{{ Lessons.get_absolute_url }}/delete" class="delete-button" value="Delete"></a></td>
+                            <td>
+                                <button type="button" class="edit-button">
+                                <a href="{{Lessons.get_absolute_url}}/edit" style="color:#FFFFFF">Edit</a>
+                              </button>
+                            </td>
+                            <td>
+                                <button type="button" class="delete-button">
+                                <a href="{{Lessons.get_absolute_url}}/delete" style="color:#FFFFFF">Delete</a>
+                              </button>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -26,5 +34,8 @@
             <p>There are no lessons created for this class.</p>
         {% endif %}
     </div>
+    <button type="button" class="submit-button">
+        <a href="/lesson/create" style="color:#FFFFFF">Add</a>
+    </button>
 
 {% endblock %}

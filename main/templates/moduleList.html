@@ -14,8 +14,16 @@
                     {% for Module in module_list %}
                         <tr>
                             <td><a href="{{ Module.get_absolute_url }}">{{ Module.module }}</a></td>
-                            <td><a href="{{ Module.get_absolute_url }}/edit" class="edit-button" value="Edit"></a></td>
-                            <td><a href="{{ Module.get_absolute_url }}/delete" class="delete-button" value="Delete"></a></td>
+                            <td>
+                                <button type="button" class="edit-button">
+                                <a href="{{Module.get_absolute_url}}/edit" style="color:#FFFFFF">Edit</a>
+                              </button>
+                            </td>
+                            <td>
+                                <button type="button" class="delete-button">
+                                <a href="{{Module.get_absolute_url}}/delete" style="color:#FFFFFF">Delete</a>
+                              </button>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -23,6 +31,10 @@
         {% else %}
             <p>There are no modules created.</p>
         {% endif %}
+
+        <button type="button" class="submit-button">
+            <a href="module/create" style="color:#FFFFFF">Add</a>
+        </button>
 
     </div>
 {% endblock %}

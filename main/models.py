@@ -6,7 +6,8 @@ from django.urls import reverse
 
 
 class Module(models.Model):
-    module = models.CharField(max_length=1000)
+    module = models.CharField(
+        max_length=1000, help_text="Please enter a unique module name", unique=True)
 
     def __str__(self):
         return self.module
@@ -17,7 +18,8 @@ class Module(models.Model):
 
 class Class(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
-    Class = models.CharField(max_length=1000)
+    Class = models.CharField(
+        max_length=1000, help_text="Please enter a unique class name", unique=True)
 
     def __str__(self):
         return self.Class
@@ -28,8 +30,10 @@ class Class(models.Model):
 
 class Lessons(models.Model):
     Class = models.ForeignKey('Class', on_delete=models.CASCADE)
-    lessonDateTime = models.DateTimeField()
-    lesson = models.CharField(max_length=1000)
+    lessonDateTime = models.DateTimeField(
+        help_text="Please enter the date and time in YYYY-MM-DD HH:mm format")
+    lesson = models.CharField(
+        max_length=1000, help_text="Please enter a unique lesson name to allow for an smoother experience", unique=True)
 
     def __str__(self):
         return self.lesson
